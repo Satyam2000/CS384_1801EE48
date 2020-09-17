@@ -76,7 +76,7 @@ def printGP(a, r, n):
 	if(not isinstance(n,int)):
 		return [0]
 
-	elif(not isinstance(r,int)):
+	elif(not isinstance(r,int)) and (not isinstance(r,float)) :
 		return [0]
 
 	if(not isinstance(a,int)):
@@ -89,8 +89,12 @@ def printGP(a, r, n):
 
 # Python 3 program to print AP.  arithmetic Progression
 #You cant use the inbuilt python function. Write your own function
-def printAP(a, d, n): 
+def printAP(a, d, n):
+	if(not isinstance(n,int)):
+		return [0] 
 	ap=[]
+	for i in range(0,n):
+		ap.append(a+(i*d))
 	return ap
 
 # Python 3 program to print HP.   Harmonic Progression
