@@ -73,7 +73,18 @@ def power(base, exp): #base ^ exp
 # Python 3 program to print GP.  geometric Progression
 #You cant use the inbuilt python function. Write your own function
 def printGP(a, r, n): 
+	if(not isinstance(n,int)):
+		return [0]
+
+	elif(not isinstance(r,int)):
+		return [0]
+
+	if(not isinstance(a,int)):
+		return [0]
+
 	gp=[]
+	for i in range(0,n):
+		gp.append(a*power(r,i)) 
 	return gp 
 
 # Python 3 program to print AP.  arithmetic Progression
