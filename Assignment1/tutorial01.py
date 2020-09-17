@@ -79,7 +79,7 @@ def printGP(a, r, n):
 	elif(not isinstance(r,int)) and (not isinstance(r,float)) :
 		return [0]
 
-	if(not isinstance(a,int)):
+	if(not isinstance(a,int)) and (not isinstance(a,float)) :
 		return [0]
 
 	gp=[]
@@ -101,5 +101,20 @@ def printAP(a, d, n):
 #You cant use the inbuilt python function. Write your own function
 def printHP(a, d, n): 
 	hp=[]
+	if(not isinstance(n,int)):
+		return hp
+
+	if(not isinstance(a,int)) and (not isinstance(a,float)) :
+		return hp
+
+	if(not isinstance(d,int)) and (not isinstance(d,float)) :
+		return hp
+		
+	ap=printAP(a,d,n)
+	for i in range(0,n):
+		if(ap[i]==0):
+			hp.append(round(0,3))
+		else:
+			hp.append(round(1/ap[i],3))
 	return hp
 
