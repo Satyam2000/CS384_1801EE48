@@ -56,8 +56,10 @@ student_answers.append(test_case_11)
 test_case_12 = A2.rmse(p, r)  # Invalid since list  r contains non-numeric data-type e.g., string/character #Return 0
 student_answers.append(test_case_12)
 
+
 print(actual_answers)
 print(student_answers)
+
 
 total_test_cases = len(actual_answers)
 count_of_correct_test_cases = 0
@@ -67,3 +69,17 @@ for x, y in zip(actual_answers, student_answers):
         count_of_correct_test_cases += 1
 
 print(f"Test Cases Passed = '{count_of_correct_test_cases}'  / '{total_test_cases}'")
+
+Marks = [99, 85, 14, 76, 62, 49, 93, 59]
+expected_output = [14, 49, 59, 62, 76, 85, 93, 99]
+student_output = []
+
+test_case_13= A2.sorting(Marks)
+student_output = (test_case_13)
+
+print(student_output)
+
+
+if expected_output == student_output:
+        print("Sorting done correctly!")
+
