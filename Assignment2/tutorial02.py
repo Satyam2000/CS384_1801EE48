@@ -61,14 +61,35 @@ def variance(first_list):
 # Function to compute RMSE. You cant use Python functions
 def rmse(first_list, second_list):
     # RMSE Logic
+    #for i in first_list:
+     #   if (not isinstance(i,int)) and (not isinstance(i,float)):
+      #      return 0
+    #for i in second_list:
+     #   if (not isinstance(i,int)) and (not isinstance(i,float)) :
+      #      return 0
+             
+    #rmse_value=math.sqrt(mse(first_list,second_list))
+    
     return rmse_value
 
 
 # Function to compute mse. You cant use Python functions
 def mse(first_list, second_list):
     # mse Logic
-    return mse_value
+    #for i in first_list:
+     #   if (not isinstance(i,int)) and (not isinstance(i,float)):
+        #    return 0
+    #for i in second_list:
+      #  if (not isinstance(i,int)) and (not isinstance(i,float)) :
+       #     return 0
 
+    #list3=[]
+    #for (i,j) in zip(first_list,second_list):
+     #   list3.append(((i-j)*(i-j)))
+
+    #mse_value=mean(list3)
+
+    return mse_value
 
 # Function to compute mae. You cant use Python functions
 def mae(first_list, second_list):
@@ -90,8 +111,20 @@ def pcc(first_list, second_list):
 
 # Function to compute Skewness. You cant use Python functions
 def skewness(first_list):
-    # Skewness Logic
-    return skewness_value
+    for x in range(len(first_list)) :
+        if (not isinstance(first_list[x],int)) and (not isinstance(first_list[x],float)) :
+            return 0
+    else:        
+        # Skewness Logic
+        var=standard_deviation(first_list)
+        avg=mean(first_list)
+
+        list4=[]
+
+        for i in first_list:
+            list4.append(((i-avg)/var)*((i-avg)/var)*((i-avg)/var))
+        skewness_value = mean(list4)
+        return round(skewness_value,6)
     
 def sorting(first_list):
     # Sorting Logic
