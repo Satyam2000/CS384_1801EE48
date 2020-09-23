@@ -1,6 +1,6 @@
 import tutorial02 as A2
 
-actual_answers = [0.558, 0.641, 0.302, 0.091, -0.389, 1.997, 0.475, 0.226, 0.404, -1.476, 0.051, 0, 0, 0]
+actual_answers = [0.558, 0.641, 0.091, -0.389, 1.997, 0.475, 0.226, 0.404, -1.476, 0.051, 0, 0, 0]
 student_answers = []
 
 import numpy as np
@@ -18,8 +18,8 @@ student_answers.append(test_case_2)
 #test_case_3 = A2.standard_deviation(x)
 #student_answers.append(test_case_3)
 
-#test_case_4 = A2.variance(x)
-#student_answers.append(test_case_4)
+test_case_4 = A2.variance(x)
+student_answers.append(test_case_4)
 
 #test_case_5 = A2.skewness(x)
 #student_answers.append(test_case_5)
@@ -42,8 +42,6 @@ student_answers.append(test_case_2)
 #test_case_11 = A2.pcc(x, y)
 #student_answers.append(test_case_11)
 
-test_case_13 = A2.summation(x)
-student_answers.append(test_case_13)
 
 p = [1, 4, 5, 7, 7, 5, 4]
 q = [5, 7, 2, 4, 8, 9, 1, 9]
