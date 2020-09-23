@@ -31,19 +31,30 @@ def median(first_list):
 # Function to compute Standard deviation. You cant use Python functions
 def standard_deviation(first_list):
     # Standard deviation Logic
-    return standard_deviation_value
+    for x in range(len(first_list)) :
+        if (not isinstance(first_list[x],int)) and (not isinstance(first_list[x],float)) :
+            return 0
+
+    else:
+        standard_deviation_value=math.sqrt(variance(first_list))
+        return round(standard_deviation_value,6)
+    
 
 
 # Function to compute variance. You cant use Python functions
 def variance(first_list):
+    for x in range(len(first_list)) :
+        if (not isinstance(first_list[x],int)) and (not isinstance(first_list[x],float)) :
+            return 0
+    else:
     # variance Logic
-    avg=mean(first_list)
-    list2=[]
-    for i in range(len(first_list)):
-        list2.append((first_list[i-1]-avg)*(first_list[i-1]-avg))
+        avg=mean(first_list)
+        list2=[]
+        for i in range(len(first_list)):
+            list2.append((first_list[i-1]-avg)*(first_list[i-1]-avg))
 
-    variance_value=mean(list2)
-    return round(variance_value,6)
+        variance_value=mean(list2)
+        return round(variance_value,6)
     
 
 
