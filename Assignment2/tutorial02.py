@@ -133,8 +133,22 @@ def sorting(first_list):
 
 # Function to compute Kurtosis. You cant use Python functions
 def kurtosis(first_list):
+    for x in range(len(first_list)) :
+        if (not isinstance(first_list[x],int)) and (not isinstance(first_list[x],float)) :
+            return 0
+    else:        
     # Kurtosis Logic
-    return kurtosis_value
+        var=standard_deviation(first_list)
+        avg=mean(first_list)
+        list5=[]
+
+        for x in first_list:
+            list5.append(((x-avg)/var)*((x-avg)/var)*((x-avg)/var)*((x-avg)/var))
+
+        kurtosis_value=mean(list5)
+        
+        return round(kurtosis_value,6)
+
 
 
 # Function to compute sum. You cant use Python functions

@@ -24,8 +24,8 @@ student_answers.append(test_case_4)
 test_case_5 = A2.skewness(x)
 student_answers.append(test_case_5)
 
-#test_case_6 = A2.kurtosis(x)
-#student_answers.append(test_case_6)
+test_case_6 = A2.kurtosis(x)
+student_answers.append(test_case_6)
 
 #test_case_7 = A2.rmse(x, y)
 #student_answers.append(test_case_7)
