@@ -1,6 +1,7 @@
 import math
 # All decimal 3 places
 
+
 # Function to compute mean
 def mean(first_list):
     # mean Logic
@@ -12,7 +13,19 @@ def mean(first_list):
 # Function to compute median. You cant use Python functions
 def median(first_list):
     # median Logic
-    return median_value
+    median_value = 0
+    for x in range(len(first_list)) :
+        if (not isinstance(first_list[x],int)) and (not isinstance(first_list[x],float)) :
+            return 0
+        else:
+            list1=sorting(first_list.copy())
+            n=len(list1)
+            if(n%2 == 0) :
+                median_value=(list1[int((n/2)-1)]+list[int(n/2)])/2
+            else:
+                median_value=list1[(int((n+1)/2)-1)]
+
+            return round(median_value,6)
 
 
 # Function to compute Standard deviation. You cant use Python functions
@@ -85,3 +98,41 @@ def summation(first_list):
             summation_value = summation_value + first_list[x]
 
     return summation_value
+
+
+
+# Python program for implementation of Quicksort  sorting algorithm
+ 
+def partition(arr,low,high): 
+	i = ( low-1 )		 # index of smaller element 
+	pivot = arr[high]	 # pivot 
+
+	for j in range(low , high): 
+
+		# If current element is smaller than the pivot 
+		if arr[j] < pivot: 
+		
+			# increment index of smaller element 
+			i = i+1
+			arr[i],arr[j] = arr[j],arr[i] 
+
+	arr[i+1],arr[high] = arr[high],arr[i+1] 
+	return ( i+1 ) 
+
+
+# Function to do Quick sort 
+def quickSort(arr,low,high): 
+	if low < high: 
+ 
+	    pi = partition(arr,low,high) 
+ 
+	    quickSort(arr, low, pi-1) 
+	    quickSort(arr, pi+1, high) 
+
+#Function to do the sorting of list using Quick sort
+def sorting(first_list):
+    # Sorting Logic
+    quickSort(first_list,0,len(first_list)-1)
+
+    return first_list
+
