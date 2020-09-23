@@ -27,8 +27,8 @@ student_answers.append(test_case_5)
 test_case_6 = A2.kurtosis(x)
 student_answers.append(test_case_6)
 
-#test_case_7 = A2.rmse(x, y)
-#student_answers.append(test_case_7)
+test_case_7 = A2.rmse(x, y)
+student_answers.append(test_case_7)
 
 #test_case_8 = A2.mse(x, y)
 #student_answers.append(test_case_8)

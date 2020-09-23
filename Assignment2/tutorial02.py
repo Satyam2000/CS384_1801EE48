@@ -61,14 +61,14 @@ def variance(first_list):
 # Function to compute RMSE. You cant use Python functions
 def rmse(first_list, second_list):
     # RMSE Logic
-    #for i in first_list:
-     #   if (not isinstance(i,int)) and (not isinstance(i,float)):
-      #      return 0
-    #for i in second_list:
-     #   if (not isinstance(i,int)) and (not isinstance(i,float)) :
-      #      return 0
+    for i in first_list:
+        if (not isinstance(i,int)) and (not isinstance(i,float)):
+            return 0
+    for i in second_list:
+        if (not isinstance(i,int)) and (not isinstance(i,float)) :
+            return 0
              
-    #rmse_value=math.sqrt(mse(first_list,second_list))
+    rmse_value=math.sqrt(mse(first_list,second_list))
     
     return rmse_value
 
@@ -76,18 +76,18 @@ def rmse(first_list, second_list):
 # Function to compute mse. You cant use Python functions
 def mse(first_list, second_list):
     # mse Logic
-    #for i in first_list:
-     #   if (not isinstance(i,int)) and (not isinstance(i,float)):
-        #    return 0
-    #for i in second_list:
-      #  if (not isinstance(i,int)) and (not isinstance(i,float)) :
-       #     return 0
+    for i in first_list:
+        if (not isinstance(i,int)) and (not isinstance(i,float)):
+            return 0
+    for i in second_list:
+        if (not isinstance(i,int)) and (not isinstance(i,float)) :
+            return 0
 
-    #list3=[]
-    #for (i,j) in zip(first_list,second_list):
-     #   list3.append(((i-j)*(i-j)))
+    list3=[]
+    for (i,j) in zip(first_list,second_list):
+        list3.append(((i-j)*(i-j)))
 
-    #mse_value=mean(list3)
+    mse_value=mean(list3)
 
     return mse_value
 
@@ -146,7 +146,7 @@ def kurtosis(first_list):
             list5.append(((x-avg)/var)*((x-avg)/var)*((x-avg)/var)*((x-avg)/var))
 
         kurtosis_value=mean(list5)
-        
+
         return round(kurtosis_value,6)
 
 
