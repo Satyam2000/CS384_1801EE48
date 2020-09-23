@@ -36,8 +36,8 @@ student_answers.append(test_case_8)
 test_case_9 = A2.mae(x, y)
 student_answers.append(test_case_9)
 
-#test_case_10 = A2.nse(x, y)
-#student_answers.append(test_case_10)
+test_case_10 = A2.nse(x, y)
+student_answers.append(test_case_10)
 
 #test_case_11 = A2.pcc(x, y)
 #student_answers.append(test_case_11)
