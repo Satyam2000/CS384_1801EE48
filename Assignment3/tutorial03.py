@@ -1,5 +1,6 @@
 import csv
 import os
+import shutil
 
 def course():
     # Read csv and process
@@ -17,8 +18,20 @@ def email_domain_extract():
 
 
 def gender():
-    open('C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/gender/female.csv', 'w').close()
-    open('C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/gender/male.csv', 'w').close()
+    if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics')) :
+        if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/gender')) :
+            shutil.rmtree(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/gender')
+
+            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/gender"
+            os.mkdir(path)
+
+        else :
+            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/gender"
+            os.mkdir(path)
+    else :
+        path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/gender"
+        os.makedirs(path)
+    
     # Read csv and process
     with open('C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/studentinfo_cs384.csv', 'r') as file:
         reader = csv.reader(file)
@@ -34,6 +47,7 @@ def gender():
     pass
 
 
+gender()
 
 def dob():
     # Read csv and process
