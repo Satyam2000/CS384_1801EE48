@@ -89,10 +89,44 @@ def dob():
 
 
 def state():
+    if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics')) :
+        if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state')) :
+            shutil.rmtree(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state')
+
+            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state"
+            os.mkdir(path)
+
+        else :
+            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state"
+            os.mkdir(path)
+
+    else :
+        os.makedirs(r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state")
+
     # Read csv and process
+    path = "C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state"
+    
+    with open('C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/studentinfo_cs384.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if(row[0] == 'id') :
+                temp = row
+            state_name = row[7] +'.csv'
+            pa = os.path.join(path,state_name) 
+            if(not row[0] =='id'):
+                if(not os.path.isfile(pa)):
+                    list1 = open(pa,'w',newline='')
+                    with list1:
+                        writer=csv.writer(list1) 
+                        writer.writerow(temp)     
+            if(not row[0] == 'id') :
+                list1 = open(pa,'a',newline='')
+                with list1:
+                    writer = csv.writer(list1)
+                    writer.writerow(row)
     pass
 
-
+state()
 def blood_group():
     # Read csv and process
     pass
