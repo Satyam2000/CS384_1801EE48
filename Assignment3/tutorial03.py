@@ -9,9 +9,43 @@ def course():
 
 def country():
     # Read csv and process
+    if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics')) :
+        if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/country')) :
+            shutil.rmtree(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/country')
+
+            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/country"
+            os.mkdir(path)
+
+        else :
+            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/country"
+            os.mkdir(path)
+
+    else :
+        os.makedirs(r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/country")
+
+    path = "C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/country"
+
+    with open('C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/studentinfo_cs384.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if(row[0] == 'id') :
+                temp = row
+            country_name = row[2] +'.csv'
+            pa = os.path.join(path,country_name) 
+            if(not row[0] =='id'):
+                if(not os.path.isfile(pa)):
+                    list1 = open(pa,'w',newline='')
+                    with list1:
+                        writer=csv.writer(list1) 
+                        writer.writerow(temp)     
+            if(not row[0] == 'id') :
+                list1 = open(pa,'a',newline='')
+                with list1:
+                    writer = csv.writer(list1)
+                    writer.writerow(row)
     pass
 
-
+country()
 def email_domain_extract():
     # Read csv and process
     pass
