@@ -2,10 +2,13 @@
 import csv
 import os
 import datetime
+import operator
 import shutil
 import re
+
 #Python command to clear the terminal
 os.system('cls')
+
 #The code starts here.
 def del_create_analytics_folder():
     # del the analytics folder including subfolder
@@ -65,7 +68,7 @@ def course():
             data.writerows(misc_course)
     pass
 
-course()
+
 
 def country():
     # Read csv and process
@@ -295,24 +298,24 @@ def dob():
 
 
 def state():
-    if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics')) :
-        if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state')) :
-            shutil.rmtree(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state')
+    if(os.path.isdir(r'./analytics')) :
+        if(os.path.isdir(r'./analytics/state')) :
+            shutil.rmtree('./analytics/state')
 
-            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state"
+            path = "./analytics/state"
             os.mkdir(path)
 
         else :
-            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state"
+            path = "./analytics/state"
             os.mkdir(path)
 
     else :
-        os.makedirs(r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state")
+        os.makedirs("./analytics/state")
 
     # Read csv and process
-    path = "C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/state"
+    path = "./analytics/state"
     
-    with open('C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/studentinfo_cs384.csv', 'r') as file:
+    with open('./studentinfo_cs384.csv', 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             if(row[0] == 'id') :
@@ -334,24 +337,24 @@ def state():
 
 
 def blood_group():
-    if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics')) :
-        if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/blood_group')) :
-            shutil.rmtree(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/blood_group')
+    if(os.path.isdir(r'./analytics')) :
+        if(os.path.isdir(r'./analytics/blood_group')) :
+            shutil.rmtree('./analytics/blood_group')
 
-            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/blood_group"
+            path = "./analytics/blood_group"
             os.mkdir(path)
 
         else :
-            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/blood_group"
+            path = "./analytics/blood_group"
             os.mkdir(path)
 
     else :
-        os.makedirs(r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/blood_group")
+        os.makedirs("./analytics/blood_group")
 
     # Read csv and process
-    path = "C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/blood_group"
+    path = "./analytics/blood_group"
     
-    with open('C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/studentinfo_cs384.csv', 'r') as file:
+    with open('./studentinfo_cs384.csv', 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             if(row[0] == 'id') :
@@ -376,4 +379,49 @@ def blood_group():
 # Create the new file here and also sort it in this function only.
 def new_file_sort():
     # Read csv and process
+    if(not os.path.isdir(r'./analytics')):
+        os.makedirs('./analytics')
+    temp=['id','first name','last name','country','email','gender','dob','blood group','state']
+    header =temp
+    open('./analytics/studentinfo_cs384_names_split.csv','a',newline='')
+    with open('./analytics/studentinfo_cs384_names_split.csv','a',newline='') as file:
+        writer=csv.writer(file)
+        writer.writerow(temp)
+    
+    with open('./studentinfo_cs384.csv', 'r') as file:
+        reader=csv.reader(file)
+        for row in reader:
+            if(row[0] != 'id'):
+                name_split = row[1].split(' ')
+                first_name = name_split[0]
+                last_name = name_split[1:]
+                last=''
+                for i in last_name:
+                    last=last+i+' '
+                temp = [row[0], first_name, last, row[2],
+                        row[3], row[4], row[5], row[6], row[7]]
+                new_file=open('./analytics/studentinfo_cs384_names_split.csv', 'a',newline='')
+                with new_file:
+                    writer=csv.writer(new_file)
+                    writer.writerow(temp) 
+
+    new_fil=open('./analytics/studentinfo_cs384_names_split.csv','r')
+    list1=[]
+    with new_fil:
+        reader=csv.reader(new_fil)
+        for row in reader:
+            if(row[0]!='id'):
+                list1.append(row)
+    f=open('./analytics/studentinfo_cs384_names_split_sorted_first_name.csv', 'a',newline='')
+    with f:
+        writer = csv.writer(f)
+        writer.writerow(header)
+    sort_list1=sorted(list1,key=lambda l:l[1])
+    f=open('./analytics/studentinfo_cs384_names_split_sorted_first_name.csv', 'a',newline='')
+    with f:
+        writer = csv.writer(f)
+        for row in sort_list1:
+            writer.writerow(row)
+
     pass
+new_file_sort()
