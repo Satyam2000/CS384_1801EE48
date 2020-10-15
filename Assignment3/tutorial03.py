@@ -1,6 +1,7 @@
 import csv
 import os
 import shutil
+import re
 
 def course():
     # Read csv and process
@@ -47,10 +48,60 @@ def country():
 
 country()
 def email_domain_extract():
+    if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics')) :
+        if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/email_domain')) :
+            shutil.rmtree(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/email_domain')
+
+            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/email_domain"
+            os.mkdir(path)
+
+        else :
+            path = r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/email_domain"
+            os.mkdir(path)
+
+    else :
+        os.makedirs(r"C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/email_domain")
+
     # Read csv and process
+    path = "C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/email_domain"
+    
+    domain = re.compile(r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,18}$')
+
+    with open('C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/studentinfo_cs384.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if(row[0] == 'id') :
+                temp = row
+            if(not row[0] =='id'):
+                if(re.match(domain,row[3])):
+                    result1 = row[3][row[3].index('@')+1:] 
+                    result2=result1[:result1.index('.')]
+                    pi=os.path.join(path,result2+'.csv')
+                    if(not os.path.isfile(pi)):
+                        list1 = open(pi, 'w',newline='')
+                        with list1:
+                            writer=csv.writer(list1)
+                            writer.writerow(temp)
+                    list1 = open(pi, 'a',newline='')
+                    with list1:
+                        writer=csv.writer(list1)
+                        writer.writerow(row)
+                else:
+                    pi=os.path.join(path,'misc.csv')
+                    if(not os.path.isfile(pi)):
+                        list1 = open(pi, 'w',newline='')
+                        with list1:
+                            writer=csv.writer(list1)
+                            writer.writerow(temp)
+                    list1 = open(pi, 'a',newline='')
+                    with list1:
+                        writer=csv.writer(list1)
+                        writer.writerow(row)      
+            
+
     pass
 
-
+email_domain_extract()
 def gender():
     if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics')) :
         if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/gender')) :
