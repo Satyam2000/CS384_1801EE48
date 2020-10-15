@@ -190,6 +190,12 @@ def gender():
                 with open('./analytics/gender/male.csv', 'a',newline='') as male:
                     writer = csv.writer(male)
                     writer.writerow(row)
+
+            else:
+                misc= open('./analytics/gender/misc.csv','a',newline='')
+                with misc:
+                    writer=csv.writer(misc)
+                    writer.writerow(row)  
     pass
 
 
@@ -424,4 +430,3 @@ def new_file_sort():
             writer.writerow(row)
 
     pass
-new_file_sort()
