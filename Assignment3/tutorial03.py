@@ -18,8 +18,54 @@ def del_create_analytics_folder():
 
 def course():
     # Read csv and process
+    cd = '.'
+    
+    with open('studentinfo_cs384.csv','r') as file:
+        student_data = csv.DictReader(file)
+        misc_course=[]
+        header=['id','full_name','country','email','gender','dob','blood_group','state']
+        course_code={'01' : "btech",'11' : "mtech",'12' : "msc",'21' : "phd"}
+        roll_number_pattern = re.compile(r'^[0-9]{2}[0-2]{2}[a-zA-Z]{2}[0-9]{2}$')    
+        cd+=r'\analytics'
+        if(not os.path.isdir(cd)):
+            os.mkdir(cd)
+        cd+=r'\course'
+        if(not os.path.isdir(cd)):
+            os.mkdir(cd)
+        for row in student_data:
+            roll_no = row['id']
+            if(not re.match(roll_number_pattern , roll_no)):
+                misc_course.append(row)
+            else:
+                year = roll_no[0:2]
+                course = course_code[roll_no[2:4]]
+                branch = (roll_no[4:6]).lower()
+                cd1=cd
+                cd1+="\\"+branch
+                if not os.path.isdir(cd1):
+                    os.mkdir(cd1)
+                cd1+="\\"+course
+                if not os.path.isdir(cd1):
+                    os.mkdir(cd1)
+                info_file = cd1 + "\\" + year + '_' + branch + '_' + course + ".csv"
+                if(not os.path.isfile(info_file)):
+                    file=open(info_file,'w',newline='')
+                    with file:
+                        writer = csv.DictWriter(file,fieldnames=header)
+                        writer.writeheader()
+                file=open(info_file,'a+',newline='')
+                with file:
+                    writer = csv.DictWriter(file,fieldnames=header)
+                    writer.writerow(row)
+        cd+=r'\misc.csv'
+        file=open(cd,'w',newline='')
+        with file:
+            data = csv.DictWriter(file,fieldnames=header)
+            data.writeheader()
+            data.writerows(misc_course)
     pass
 
+course()
 
 def country():
     # Read csv and process
@@ -59,7 +105,6 @@ def country():
                     writer.writerow(row)
     pass
 
-country()
 def email_domain_extract():
     if(os.path.isdir(r'./analytics')) :
         if(os.path.isdir(r'./analytics/email_domain')) :
@@ -114,7 +159,7 @@ def email_domain_extract():
 
     pass
 
-email_domain_extract()
+
 def gender():
     if(os.path.isdir(r'./analytics')) :
         if(os.path.isdir(r'./analytics/gender')) :
@@ -145,7 +190,7 @@ def gender():
     pass
 
 
-gender()
+
 #program to check whether dob is valid.
 def date_validation(day, month, year): 
       
@@ -247,7 +292,7 @@ def dob():
     
     pass
 
-dob()
+
 
 def state():
     if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics')) :
@@ -287,7 +332,7 @@ def state():
                     writer.writerow(row)
     pass
 
-state()
+
 def blood_group():
     if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics')) :
         if(os.path.isdir(r'C:/Users/satyam kumar/Desktop/CS384/CS384_1801EE48/Assignment3/analytics/blood_group')) :
@@ -327,7 +372,7 @@ def blood_group():
 
     pass
 
-blood_group()
+
 # Create the new file here and also sort it in this function only.
 def new_file_sort():
     # Read csv and process
