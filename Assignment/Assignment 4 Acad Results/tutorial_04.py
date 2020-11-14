@@ -62,7 +62,7 @@ for roll in roll_list:
                 list2.append(row)
     sorted_list=sorted(list2,key=lambda l:l[4])
     list2.clear()
-
+#program to separate the dataset into rollno_overall
 
     with open('./grades/'+roll+'_overall.csv', 'a',newline='') as file:
         writer=csv.writer(file)
