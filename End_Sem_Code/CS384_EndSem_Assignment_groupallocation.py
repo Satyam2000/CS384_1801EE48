@@ -122,6 +122,7 @@ def group_allocation(filename, groups_no):
     return
 
 
-filename = "Btech_2020_master_data.csv"
+filename = "Btech_2020_master_data.csv" #All the data derived from this file.
+#No. of groups to be provided by the user.
 groups_no = int(input("Enter No. of Groups : ", ))
 group_allocation(filename, groups_no)
