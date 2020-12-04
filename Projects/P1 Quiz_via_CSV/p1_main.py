@@ -70,3 +70,78 @@ def timer(quiz):
         root.update()
         time.sleep(1)
         duration -= 1
+        
+def load_reg_data():
+    users_data = []
+    db_connection = sqlite3.connect("project1 quiz cs384.db")
+    curs = db_connection.cursor()
+
+    try:
+        curs.execute(
+            """CREATE TABLE project1_registration
+	    	         (name text, roll text, password text, contact integer(10))"""
+        )
+    except:
+        pass
+
+    for data in curs.execute("SELECT * FROM project1_registration"):
+        users_data.append(data)
+    db_connection.close()
+
+    return users_data
+
+
+def getusr_check():
+
+    reg_users = load_reg_data()
+    reg_roll_nos = []
+    for data in reg_users:
+        reg_roll_nos.append(data[1])
+
+    username = input("Registered Username: ")
+    if username in reg_roll_nos:
+        password = gp.getpass("Password: ")
+        if bcrypt.checkpw(password.encode('utf-8'), reg_users[reg_roll_nos.index(username)][2]):
+            print("Succesfully logged in!")
+            return reg_users[reg_roll_nos.index(username)]
+        else:
+            print("Wrong Password")
+    else:
+        print("\n The above username is not registered : Redirecting to the Registration portal")
+        usr_detail = register_user()
+        return usr_detail
+
+def give_option():
+    my_option = input("Please press 1 to Register(For First time user):\nPress 2 to login:")
+    if my_option =='2':
+        return getusr_check()
+    elif my_option == '1':
+        return register_user()
+
+def register_user():
+    print("The User Name is not Registered: ")
+    reg_users = load_reg_data()
+    reg_roll_nos = []
+    for data in reg_users:
+        reg_roll_nos.append(data[1])
+
+    username = input("Registered Username: ")
+    if username in reg_roll_nos:
+        print("Username Already Exist: Redireecting to the Login portal:")
+        return getusr_check()
+
+    name = input("Enter Name: ")
+    roll_no = input("Enter Roll No.: ")
+    contact_no = int(input("Contact No/WhatsApp Number: "))
+    password = gp.getpass("Password: ")
+    hashed_pw = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    db_connection = sqlite3.connect("project1 quiz cs384.db")
+    curs = db_connection.cursor()
+    curs.execute(
+        "INSERT INTO project1_registration VALUES (?,?,?,?)",
+        (name, roll_no, hashed_pw, contact_no),
+    )
+    db_connection.commit()
+    db_connection.close()
+    print("You have Successfully registered!")
+    return (name, roll_no, hashed_pw, contact_no)
