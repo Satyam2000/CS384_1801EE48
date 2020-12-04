@@ -242,3 +242,110 @@ def export_to_csv():
                 # Writing the descriptive header
 				writer.writerow(["Roll No.", "Quiz No.", "Marks"])
 				writer.writerows(data_to_write)
+
+def start_quiz(quiz, user):
+    questions_folder = os.path.join(current_path, "quiz_wise_questions")
+    roll_no = user[1]
+    quiz_no = quiz
+    quiz_number_str=str(quiz_no)
+    csv_to_open = "q"+quiz_number_str+".csv"
+    os.chdir(questions_folder)
+    df_quiz = pd.read_csv(csv_to_open)
+    my_choice = 0 
+    tmp = ''
+    global skipped_questions
+    marks_quiz, skipped_questions, responses_for_csv = [], [], []
+    no_of_skipped_questions, correct, wrong, total_marks = 0, 0, 0, 0
+    show_skipped = False
+
+    while my_choice < df_quiz.shape[0]:
+        my_choice += 1
+        marks_gained = 0
+        show_user_data(user, show_skipped)
+        print(f"Question {my_choice}) {df_quiz.question[my_choice-1]}")
+        print(f"Option 1) {df_quiz.option1[my_choice-1]}")
+        print(f"Option 2) {df_quiz.option2[my_choice-1]}")
+        print(f"Option 3) {df_quiz.option3[my_choice-1]}")
+        print(f"Option 4) {df_quiz.option4[my_choice-1]}")
+        print()
+        print(
+            f" Marks/Credits if Correct Choice: {df_quiz.marks_correct_ans[my_choice-1]}")
+        print(f"Penalty(For the Negative Marking): {df_quiz.marks_wrong_ans[my_choice-1]}")
+        iscompulsion_pool = {'n': "No", 'y': "Yes"}
+        print(
+            f"Is compulsory: {iscompulsion_pool[df_quiz.compulsory[my_choice-1]]}")
+        print()
+
+        if iscompulsion_pool[df_quiz.compulsory[my_choice-1]] == "Yes":
+            print("Enter Choice (1, 2, 3, 4):  ")
+            tmp = pressed_hotkeys()
+        else:
+            print("Enter Choice (1, 2, 3, 4, S):  ")
+            tmp = pressed_hotkeys()
+        time.sleep(0.7)
+
+        if tmp == str(df_quiz.correct_option[my_choice-1]):
+            marks_gained = df_quiz.marks_correct_ans[my_choice-1]
+            correct += 1
+        elif tmp == 's':
+            # print(tmp)
+            skipped_questions.append(my_choice)
+            no_of_skipped_questions += 1
+            marks_gained = 0
+        elif tmp == 'export_to_csv':
+        	my_choice -= 1
+        	export_to_csv()
+        	marks_gained = 0
+        elif tmp == 'skip_question':
+        	my_choice -= 1
+        	show_skipped = True
+        elif tmp == 'goto_question':
+            my_choice = int(input("Enter the question no. you want to go to :"))
+            my_choice -= 1
+            continue
+        elif tmp == 'final_submit':
+        	my_choice -= 1
+        	break
+        else:
+            marks_gained = df_quiz.marks_wrong_ans[my_choice-1]
+            wrong += 1
+            
+        marks_quiz.append(marks_gained)
+        if (not my_choice<1) and tmp in ['1','2','3','4','s']:
+	        total_marks += df_quiz.marks_correct_ans[my_choice-1]
+	        extra = [tmp]
+	        responses_for_csv.append(list(df_quiz.loc[my_choice-1][0:-1]))
+	        responses_for_csv[my_choice-1] += extra
+
+    header_responses = df_quiz.columns.values
+    header_responses = list(header_responses)[:-1]
+
+    additional_header = ['marked choice']
+    header_responses = header_responses + additional_header
+    # --------------------Changing the path to the individual Response----------------
+    os.chdir(current_path)
+    os.chdir(os.path.join(current_path, "individual_responses"))
+    # --------------------------------------------------------
+    total_marks_obtained = my_choice(marks_quiz)
+    additional_col = {
+        "Total": [correct, wrong, no_of_skipped_questions, total_marks_obtained, total_marks],
+        "Legend": ["Correct Choices", "Wrong Choices", "Unattempted", "Marks Obtained", "Total Quiz Marks"]
+    }
+
+    new_df = pd.DataFrame(additional_col)
+    responses_df = pd.DataFrame(responses_for_csv, columns=header_responses)
+    header_responses += ["Total", "Legend"]
+    responses_df = pd.concat([responses_df, new_df], axis=1)
+
+    responses_csv_name = "q" + str(quiz_no) + "_" + roll_no + ".csv"
+    responses_df.to_csv(responses_csv_name, index=False)
+
+    store_marks_in_database(roll_no, quiz_no, total_marks_obtained)
+
+    show_user_data(user, show_skipped)
+    # Summary of the Quiz to the students.
+    print(f"Total Quiz Questions: {my_choice}")
+    print(f"Total Quiz Questions Attempted: {my_choice - no_of_skipped_questions}")
+    print(f"Total Correct Questions: {correct}")
+    print(f"Total Wrong Questions: {wrong}")
+    print(f"Total Marks Questions: {total_marks_obtained}/{total_marks}\n")
