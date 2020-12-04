@@ -1,0 +1,11 @@
+ques_no,question,option1,option2,option3,option4,correct_option,marks_correct_ans,marks_wrong_ans,compulsory,marked choice,Total,Legend
+1,What is the maximum possible length of an identifier?,16,32,64,none,4,4,-1,y,1,3.0,Correct Choices
+2,Who developed the Python language?,Zim Den,Guido van Rossum,Niene Stom,Wick van Rossum,2,4,-1,n,2,7.0,Wrong Choices
+3,In which year was the Python language developed?,1995,1972,1981,1989,4,4,-1,y,3,0.0,Unattempted
+4,In which language is Python written?,english,PHP,C,all the above,3,4,-1,n,1,5.0,Marks Obtained
+5,king of fruits?,Mango,potato,tomato,lichchi,1,4,-1,y,4,40.0,Total Quiz Marks
+6,largest number of 3 digit,9999,999,145,666,2,4,-1,n,1,,
+7,tallest animal,giraffe,cow,dog,lion,1,4,-1,y,1,,
+8,father of computer,charles babbage,harry potter,b r ambedkar,rabindranath tagore,1,4,-1,n,1,,
+9,2*5*8*7 -5^3,445,455,435,465,3,4,-1,y,1,,
+10,5 % of 450,22,23,21.5,22.5,4,4,-1,n,1,,

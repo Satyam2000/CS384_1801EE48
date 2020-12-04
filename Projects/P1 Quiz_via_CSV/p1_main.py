@@ -19,7 +19,7 @@ from tkinter import *
 from numpy.core.numeric import roll
 
 global current_path
-current_path = os.getcwd() #returns current working directory of a of the system.
+current_path = os.getcwd() #returns current working directory  of the system.
 global is_keypress
 global end_timer
 end_timer = False
@@ -255,8 +255,7 @@ def start_quiz(quiz, user):
     csv_to_open = "q"+quiz_number_str+".csv"
     os.chdir(questions_folder)
     df_quiz = pd.read_csv(csv_to_open)
-    my_choice = 0 
-    tmp = ''
+    my_choice, tmp = 0, ''
     global skipped_questions
     marks_quiz, skipped_questions, responses_for_csv = [], [], []
     no_of_skipped_questions, correct, wrong, total_marks = 0, 0, 0, 0
@@ -313,7 +312,7 @@ def start_quiz(quiz, user):
         else:
             marks_gained = df_quiz.marks_wrong_ans[my_choice-1]
             wrong += 1
-            
+            # my_choice -= 1
         marks_quiz.append(marks_gained)
         if (not my_choice<1) and tmp in ['1','2','3','4','s']:
 	        total_marks += df_quiz.marks_correct_ans[my_choice-1]
@@ -330,7 +329,7 @@ def start_quiz(quiz, user):
     os.chdir(current_path)
     os.chdir(os.path.join(current_path, "individual_responses"))
     # --------------------------------------------------------
-    total_marks_obtained = my_choice(marks_quiz)
+    total_marks_obtained = sum(marks_quiz)
     additional_col = {
         "Total": [correct, wrong, no_of_skipped_questions, total_marks_obtained, total_marks],
         "Legend": ["Correct Choices", "Wrong Choices", "Unattempted", "Marks Obtained", "Total Quiz Marks"]
