@@ -3,6 +3,7 @@
                   # Satyam Kumar (1801EE48)
                   #Kishan Kumar singh (1801EE22)
 
+#A python project on building a quiz portal done by satyam kumar and kishan kumar singh.
 import os
 import csv
 import sqlite3
@@ -70,6 +71,8 @@ def timer(quiz):
         root.update()
         time.sleep(1)
         duration -= 1
+
+
 
 def load_reg_data():
     users_data = []
@@ -145,6 +148,7 @@ def register_user():
     db_connection.close()
     print("You have Successfully registered!")
     return (name, roll_no, hashed_pw, contact_no)
+
 
 def show_user_data(user_data, skipped):
     os.system('cls' if os.name =='nt'else 'clear')
@@ -349,3 +353,35 @@ def start_quiz(quiz, user):
     print(f"Total Correct Questions: {correct}")
     print(f"Total Wrong Questions: {wrong}")
     print(f"Total Marks Questions: {total_marks_obtained}/{total_marks}\n")
+
+   
+
+
+user = give_option()
+if not user == []:
+    quiz = int(input("Please enter the serial number of the quiz you want to attend? (1/2/3): "))
+    t1 = threading.Thread(target=start_quiz, args=(quiz, user,))
+    t2 = threading.Thread(target=timer, args=(quiz,))
+    t1.start()
+    t2.start()
+    t1.join()
+    end_timer = True
+    print("Press 'Ctrl+Q' to quit, Press 'Ctrl+Alt+E' to export data to csv")
+    # Taking the input and doing the match
+    key = pressed_hotkeys()
+    if key == 'export_to_csv':
+    	export_to_csv()
+    	is_keypress = False
+    else:
+    	is_keypress = False
+'''
+if __name__ == "__main__":
+    t1 = threading.Thread(target=start_quiz, args=(quiz, user,))
+    t2 = threading.Thread(target=pressed_hotkeys, args=())
+    t3 = threading.Thread(target=timer, args=())
+
+    t1.start()
+    t2.start()
+
+    t2.join()
+    stat = False'''

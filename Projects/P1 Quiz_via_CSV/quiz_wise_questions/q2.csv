@@ -1,0 +1,11 @@
+ques_no,question,option1,option2,option3,option4,correct_option,marks_correct_ans,marks_wrong_ans,compulsory,time=20m
+1,what is the national bird of india?,parrot,peacock,ostrich,cuckoo,2,4,-1,y,
+2,4^4=?,64,16,256,520,3,4,-1,n,
+3,who is known as " The Father of the nation",Nathuram Godse,Mahatma Gandhi,Pt Nehru,Narendra Modi,2,3,-0.75,n,
+4,2*2*2,4,6,8,10,3,3,-0.75,y,
+5,14^2,150,196,206,201,2,3,-0.75,y,
+6,capital of Bihar,Patna,banaras,allahabad,kota,1,5,-1.25,y,
+7,4+8+6,11,10,45,18,4,5,-1.25,y,
+8,president of india,ramnath kovind,apj abdul kalam,radhakrishnan,,1,10,-2.5,y,
+9,pick odd one out,cricket,football,hockey,table tennis,4,5,-1.25,n,
+10,12^2 -8^2,20,16,80,120,3,4,-1,y,
