@@ -164,8 +164,36 @@ def renamed_How_I_Met_Your_Mother_series(padding_season, padding_episode):
     pass
 
 
-renamed_FIR_series(6)
-renamed_Game_of_Thrones_series(3, 3)
-renamed_How_I_Met_Your_Mother_series(3, 3)
-renamed_Sherlock_series(3, 3)
-renamed_Suits_series(3, 3)
+def user_input():
+    """ Takes the intput from user and call the corresponding function acc. """
+    num = int(
+        input("Enter the corresponding number of the web series for renaming:  "))
+    season_padd = int(input("Enter the season padding: "))
+    episode_padd = int(input("Enter the episode padding: "))
+    if num == 1:
+        renamed_FIR_series(season_padd, episode_padd)
+    elif num == 2:
+        renamed_Game_of_Thrones_series(season_padd, episode_padd)
+    elif num == 3:
+        renamed_How_I_Met_Your_Mother_series(season_padd, episode_padd)
+    elif num == 4:
+        renamed_Sherlock_series(season_padd, episode_padd)
+    elif num == 5:
+        renamed_Suits_series(season_padd, episode_padd)
+    else:
+        print("Not available try again: ")
+        user_input()
+    pass
+
+
+print("""Titles corresponding to numbers:
+    option(1) FIR
+    option(2) Game of Thrones
+    option(3) How I Met Your Mother
+    option(4) Sherlock
+    option(5) Suits
+        """)
+        
+user_input()
+
+
