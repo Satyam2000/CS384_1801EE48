@@ -24,6 +24,8 @@ global is_keypress
 global end_timer
 end_timer = False
 is_keypress = True
+global isquizon
+isquizon=True
 
 global uanttempted_questions
 uanttempted_questions = []
@@ -32,7 +34,7 @@ db_connection = sqlite3.connect('project1 quiz cs384.db')
 curs = db_connection.cursor()
 
 def timer(quiz):
-
+    global isquizon
     time_limit = 0
     access = open(os.path.join(current_path, "quiz_wise_questions", f"q{quiz}.csv"), mode ="r")
     data_frame= pd.read_csv(access)
@@ -62,15 +64,18 @@ def timer(quiz):
     duration = (int(time_duration[0]))*60   #Conversion into seconds
     
     while duration > -1:
+        if(duration == 0):
+            isquizon =False
         mins, secs = divmod(duration, 60)
         if end_timer==True:
-        	root.destroy()
-        	break
+            root.destroy()
+            break
         minute.set("{0:2d}".format(mins))   #formatting the time in 2 decimals
         second.set("{0:2d}".format(secs))
         root.update()
         time.sleep(1)
         duration -= 1
+        
 
 
 
@@ -221,7 +226,7 @@ def pressed_hotkeys():
             	tmp = '4'
             	print("4")
             	return tmp
-            elif keyboard.is_pressed('ctrl+q') or keyboard.is_pressed('ctrl+Q'):
+            elif keyboard.is_pressed('q') or keyboard.is_pressed('Q'):
             	tmp = 'q'
             	return tmp
             elif keyboard.is_pressed('s') or keyboard.is_pressed('S'):
@@ -260,8 +265,8 @@ def start_quiz(quiz, user):
     marks_quiz, skipped_questions, responses_for_csv = [], [], []
     no_of_skipped_questions, correct, wrong, total_marks = 0, 0, 0, 0
     show_skipped = False
-
-    while my_choice < df_quiz.shape[0]:
+    global isquizon
+    while my_choice < df_quiz.shape[0] and isquizon==True:
         my_choice += 1
         marks_gained = 0
         show_user_data(user, show_skipped)
@@ -278,7 +283,8 @@ def start_quiz(quiz, user):
         print(
             f"Is compulsory: {iscompulsion_pool[df_quiz.compulsory[my_choice-1]]}")
         print()
-
+        if(isquizon==False):
+            break
         if iscompulsion_pool[df_quiz.compulsory[my_choice-1]] == "Yes":
             print("Enter Choice (1, 2, 3, 4):  ")
             tmp = pressed_hotkeys()
@@ -325,10 +331,8 @@ def start_quiz(quiz, user):
 
     additional_header = ['marked choice']
     header_responses = header_responses + additional_header
-    # --------------------Changing the path to the individual Response----------------
     os.chdir(current_path)
     os.chdir(os.path.join(current_path, "individual_responses"))
-    # --------------------------------------------------------
     total_marks_obtained = sum(marks_quiz)
     additional_col = {
         "Total": [correct, wrong, no_of_skipped_questions, total_marks_obtained, total_marks],
@@ -365,7 +369,7 @@ if not user == []:
     t2.start()
     t1.join()
     end_timer = True
-    print("Press 'Ctrl+Q' to quit, Press 'Ctrl+Alt+E' to export data to csv")
+    print("Windows terminated... Quiz is Over \nWnat to Quit press Q/q'\n To Export to CSV press 'Ctrl+Alt+E'")
     # Taking the input and doing the match
     key = pressed_hotkeys()
     if key == 'export_to_csv':
@@ -376,11 +380,11 @@ if not user == []:
 '''
 if __name__ == "__main__":
     t1 = threading.Thread(target=start_quiz, args=(quiz, user,))
-    t2 = threading.Thread(target=pressed_hotkeys, args=())
-    t3 = threading.Thread(target=timer, args=())
+    t2 = threading.Thread(target=timer, args=())
+    
 
     t1.start()
     t2.start()
-
     t2.join()
+    
     stat = False'''
