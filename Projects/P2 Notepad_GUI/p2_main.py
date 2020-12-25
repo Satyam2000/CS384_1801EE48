@@ -58,8 +58,8 @@ class Notepad(tk.Tk):
         # edit menu looks like
         
         #To give a Feature of undo and Redo.
-        self.menu_edit.add_command(label='Undo', accelerator='Ctrl+Z', command=self.undo_edit)
         self.menu_edit.add_command(label='Redo', accelerator='Ctrl+Y', command=self.redo_edit)
+        self.menu_edit.add_command(label='Undo', accelerator='Ctrl+Z', command=self.undo_edit)
         #To give a feature of cut,copy and Paste.
         self.menu_edit.add_command(label='Cut', accelerator='Ctrl+X', command=self.text_cut)
         self.menu_edit.add_command(label='Copy', accelerator='Ctrl+C', command=self.text_copy)
